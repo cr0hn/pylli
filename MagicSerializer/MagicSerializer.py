@@ -3,7 +3,7 @@ This file is part of "Pylli - Python Lost Libraries"
 Copyright (C) 2011-2012  Daniel Garcia (cr0hn) | dani@iniqua.com
 
 Golismero project site: http://code.google.com/p/pylli/
-Golismero project mail: pylli.project@gmail.com
+Golismero project mail: project.pylli@gmail.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 '''
 
 __author__ = "Daniel Garcia (cr0hn) - dani@iniqua.com"
-__copyright__ = "Copyright 2011-2012 - GoLismero project"
+__copyright__ = "Copyright 2011-2012 - Python Lost Libraries project"
 __credits__ = ["Daniel Garcia (cr0hn)"]
 __maintainer__ = "Daniel Garcia"
-__email__ = "pilly.project@gmail.com"
+__email__ = "project.pylli@gmail.com"
 __status__ = "Testing"
 
 import types
