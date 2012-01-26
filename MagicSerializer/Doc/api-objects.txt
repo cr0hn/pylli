@@ -1,0 +1,15 @@
+MagicSerializer	MagicSerializer-module.html
+MagicSerializer.__status__	MagicSerializer-module.html#__status__
+MagicSerializer.__credits__	MagicSerializer-module.html#__credits__
+MagicSerializer.__maintainer__	MagicSerializer-module.html#__maintainer__
+MagicSerializer.__email__	MagicSerializer-module.html#__email__
+MagicSerializer.__package__	MagicSerializer-module.html#__package__
+MagicSerializer.MagicSerializer	MagicSerializer.MagicSerializer-class.html
+MagicSerializer.MagicSerializer.Deserialize	MagicSerializer.MagicSerializer-class.html#Deserialize
+MagicSerializer.MagicSerializer._deserializeParams	MagicSerializer.MagicSerializer-class.html#_deserializeParams
+MagicSerializer.MagicSerializer.Serialize	MagicSerializer.MagicSerializer-class.html#Serialize
+MagicSerializer.MagicSerializer._deserialize	MagicSerializer.MagicSerializer-class.html#_deserialize
+MagicSerializer.MagicSerializer._isSimple	MagicSerializer.MagicSerializer-class.html#_isSimple
+MagicSerializer.MagicSerializer._serialize	MagicSerializer.MagicSerializer-class.html#_serialize
+MagicSerializer.MagicSerializer._isList	MagicSerializer.MagicSerializer-class.html#_isList
+MagicSerializer.MagicSerializer._libraries	MagicSerializer.MagicSerializer-class.html#_libraries
