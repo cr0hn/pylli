@@ -2,8 +2,8 @@ __license__ = '''
 This file is part of "Pylli - Python Lost Libraries"
 Copyright (C) 2011-2012  Daniel Garcia (cr0hn) | dani@iniqua.com
 
-Golismero project site: http://code.google.com/p/pylli/
-Golismero project mail: project.pylli@gmail.com
+PyLli project site: http://code.google.com/p/pylli/
+PyLli project mail: project.pylli@gmail.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -29,6 +29,7 @@ __status__ = "Testing"
 
 import types
 import xml.dom.minidom 
+
 
 #
 # MagicSerializer
@@ -128,7 +129,7 @@ class MagicSerializer:
     #
     # _serialize
     @staticmethod
-    def _serialize(obj_, file_, level_ = 0):
+    def _serialize(obj_, file_, level_ = 0, DictAux = None):
         '''
         Serialize an object
         
@@ -141,45 +142,49 @@ class MagicSerializer:
         @param level_: deep level. Used for internal. Not be asigned.
         @type level_: int
         
+        @param DictAux: for internal use. This var is used for carry var name of lists and dicts to recurivity.
+        @param DictAux: str
+        
         @return: no return.
         '''
         if obj_ is not None and file_ is not None:
             # Spaces for ident in file
             m_spaces = " " * level_
     
-            # Check if obj_ is an Array
-            if MagicSerializer._isList(obj_):
                 
-                # If dict
-                if type(obj_) == types.DictionaryType:
-                    for k, v in obj_.iteritems():
-                        # If value is a list => recursivity
-                        if MagicSerializer._isList(v):    
-                            file_.write("{spaces}<{tag}>\n".format(tag = str(k), spaces = m_spaces))
-                            MagicSerializer._serialize(v, file_, level_ + 1)
-                            file_.write("{spaces}</{tag}>\n".format(tag = str(k), spaces = m_spaces))
+            # If dict
+            if type(obj_) == types.DictionaryType:
+
+                for k, v in obj_.iteritems():
+                    
+                    if MagicSerializer._isSimple(v):
+                        m_value = ""
+                        if v is not None:
+                            m_value = str(v).replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
                             
-                        # If value is simple type write it
-                        elif MagicSerializer._isSimple(v):
-                            m_value = ""
-                            if v is not None:
-                                m_value = str(v).replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
-                                
-                            file_.write("{spaces}<{tag}>{value}</{tag}>\n".format(tag = str(k), value = m_value, spaces = m_spaces))
-                        # If value is an instance => recursivity
-                        elif type(v) == types.InstanceType:
-                            MagicSerializer._serialize(v, file_, level_ + 1)
+                        file_.write("{spaces}<{tag} Id='{ID}'>{value}</{tag}>\n".format(tag = DictAux, ID = str(k), value = m_value, spaces = m_spaces))
+                    else:
+                        file_.write("{spaces}<{tag} Id='{ID}'>\n".format(tag = DictAux, ID = str(k), spaces = m_spaces))
+                        MagicSerializer._serializeParams(k, v, file_, m_spaces, level_ + 1)
+                        file_.write("{spaces}</{tag}>\n".format(tag = DictAux, spaces = m_spaces))
                 
-                # If list
-                if type(obj_) == types.ListType:
-                    for v in obj_:
-                        # If value is a list or an instance => recursivity
-                        if MagicSerializer._isList(v) or type(v) == types.InstanceType:
-                            MagicSerializer._serialize(v, file_, level_ + 1)
-                        # If is a simpley type => write into file
-                        elif MagicSerializer._isSimple(v):
-                            file_write("{spaces}<{tag}>{value}</{tag}>".format(spaces = m_spaces, value = str(v), tag = obj_.__class__.__name__))
+            # If list
+            elif type(obj_) == types.ListType:
+                
+                for v in obj_:
+                    # If is a simpley type => write into file
+                    if MagicSerializer._isSimple(v):
+                        m_value = ""
+                        if v is not None:
+                            m_value = str(v).replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
                             
+                        file_.write("{spaces}<{tag}>{value}</{tag}>\n".format(spaces = m_spaces, value = m_value, tag = DictAux))
+                        
+                    # If value is a list or an instance => recursivity
+                    elif type(v) == types.InstanceType:
+                        file_.write("{spaces}<{tag}>\n".format(spaces = m_spaces, tag = DictAux))
+                        MagicSerializer._serializeParams(DictAux, v, file_, m_spaces, level_ + 1) # ###########
+                        file_.write("{spaces}</{tag}>\n".format(spaces = m_spaces, tag = DictAux))
             
             # If object is an instance   
             elif type(obj_) == types.InstanceType:
@@ -187,31 +192,37 @@ class MagicSerializer:
                 # Write root
                 file_.write("{spaces}<{tag}>\n".format(spaces = m_spaces, tag = obj_.__class__.__name__))
                 
-                # Looking for params
                 for key, val in obj_.__dict__.iteritems():
-                    # Check if is not a single type
-                    if type(val) == types.InstanceType:
-                        MagicSerializer._serialize(val, file_, level_ + 1)
-
-                    # Si es una lista => recursividad
-                    elif MagicSerializer._isList(val):   
-                        file_.write("{spaces}  <{tag}>\n".format(spaces = m_spaces, tag = key))
-                        MagicSerializer._serialize(val, file_, level_ + 4)
-                        file_.write("{spaces}  </{tag}>\n".format(spaces = m_spaces, tag = key))
-                    # If is a basic type
+                    # If complex data => call external func
+                    if MagicSerializer._isSimple(val) is False:
+                        MagicSerializer._serializeParams(key, val, file_, m_spaces, level_)
+                    # If simple => write it
                     else:
-                        
                         m_val = ""
                         if val is not None:
                             m_val = str(val).replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
                         
                         # Write info
-                        file_.write("{spaces} <{tag}>{value}</{tag}>\n".format(spaces = m_spaces, tag = key, value = m_val))
-                
+                        file_.write("{spaces} <{tag}>{value}</{tag}>\n".format(spaces = m_spaces, tag = key, value = m_val))                        
+                    
                 # Ending tag
                 file_.write("{spaces}</{tag}>\n".format(spaces = m_spaces, tag = obj_.__class__.__name__))
     # END _serialize
     #
+    @staticmethod
+    def _serializeParams(key, val, file_, spaces_, level_):
+
+            if type(val) == types.InstanceType:
+                MagicSerializer._serialize(val, file_, level_ + 1)
+            # If is a list => recursivity
+            elif type(val) == types.ListType:   
+                MagicSerializer._serialize(val, file_, level_ + 1, DictAux = key)
+            # If is a Dict => recursivity
+            elif type(val) == types.DictionaryType:   
+                file_.write("{spaces} <{tag}s>\n".format(spaces = spaces_, tag = key))
+                MagicSerializer._serialize(val, file_, level_ + 2, DictAux = key)
+                file_.write("{spaces} </{tag}s>\n".format(spaces = spaces_, tag = key))
+
     
     #
     # Deserialize
@@ -226,7 +237,7 @@ class MagicSerializer:
         @param file_: path of file that contain xml info
         @type file_: str
         
-        @param libs_: String with location of libraries of data that want to be loaded: for example: "thirdparty.mylibs"
+        @param libs_: String with location of libraries of data that want to be loaded: for example: "thirdparty.mylibs". If libraries are in same place that place that your're calling method, put file name.
         @type libs_: str
         
         @return: return an object filled as param obj_ type.
@@ -234,7 +245,7 @@ class MagicSerializer:
         '''
         if obj_ is not None and file_ is not None:
             dom = xml.dom.minidom.parse(file_)
-            dom.hasChildNodes()
+            #dom.hasChildNodes()
             
             # create private vars for libraries
             MagicSerializer._libraries = libs_
@@ -265,6 +276,7 @@ class MagicSerializer:
         m_object_result = None 
         
         if obj_ is not None and dom_ is not None:
+            
             # Check if obj_ is an Array
             if MagicSerializer._isList(obj_):
                # For each child node do:
@@ -276,22 +288,19 @@ class MagicSerializer:
                     exec("from %s import *" % MagicSerializer._libraries )
                     exec("m_object_result=%s()" % cn.nodeName)
                     
-
                     MagicSerializer._deserializeParams(cn , m_object_result)                    
-                                
-            
+                                            
             # If object is an instance   
-            elif type(obj_) == types.ClassType:
+            elif type(obj_) == types.ClassType:        
                 
                 for root in dom_.childNodes:
-                    
                     # skip white spaces. A framework defect when load xml file
                     if root.nodeType == xml.dom.Node.TEXT_NODE:
                         continue
-                    
+                                        
                     # Get root
                     if obj_.__name__ != root.nodeName:
-                        raise IOError("Invalid XML")
+                        raise IOError("Invalid XML")                            
 
                     # Object must be created with "exec" call because if we create it with "type()", 
                     # for example, when we check the type returned it's "type" and don't have properties
@@ -321,7 +330,7 @@ class MagicSerializer:
         
         @return: None
         '''
-        xml.dom.minidom.Document
+        
         # Examine object type looking for each attribute into xml
         for at_value, at_type in object_result_.__dict__.iteritems():
             # If is simple type => store xml value (between tags) into object.
@@ -334,25 +343,61 @@ class MagicSerializer:
             elif MagicSerializer._isList(at_type):
                 # dict?
                 if type(at_type) == types.DictionaryType:
-                    # Get container tag and then => recursivity
-                    l_list = root.getElementsByTagName(at_value)[0].childNodes
-                    t = MagicSerializer._deserialize(at_type, l_list)
-                    if t is not None:
-                        if isinstance(t, dict):
-                            object_result_.__dict__[at_value].update(t)
-                        else:
-                            object_result_.__dict__[at_value] = t
+                    # Get container tag and then => recursivity                   
+                    for l_list_l in root.getElementsByTagName(at_value + "s"):
+                        for l_list in l_list_l.getElementsByTagName(at_value):
+                            # skip white spaces. A framework defect when load xml file
+                            if l_list.nodeType == xml.dom.Node.TEXT_NODE:
+                                continue                        
+                            
+                            if l_list.attributes.has_key('Id') is False:
+                                continue
+                            
+                            l_key = l_list.attributes['Id'].nodeValue
+                            l_value = None
+                            
+                            # Looking for node value
+                            for nv in l_list.childNodes:
+                                if nv.nodeType == xml.dom.Node.TEXT_NODE:
+                                    continue
+                                else:
+                                    l_value = nv
+                                    break
+                            
+                            if MagicSerializer._isSimple(l_value):
+                                object_result_.__dict__[at_value][l_key] = l_value
+                            else:
+                                class_type = None
+                                exec("from %s import *" % MagicSerializer._libraries )
+                                exec("class_type=%s" % l_value.nodeName)
+                                object_result_.__dict__[at_value][l_key] = MagicSerializer._deserialize(class_type, l_list)
                     
                 # list?
                 if type(at_type) == types.ListType:
                     # Fill with recursivity return
-                    l_list = root.getElementsByTagName(at_value)[0].childNodes
-                    t = MagicSerializer._deserialize(at_type, l_list)
-                    if t is not None:
-                        if isinstance(t, list):               
-                            object_result_.__dict__[at_value].extend(t)        
+                    for l_list in root.getElementsByTagName(at_value):
+                        # skip white spaces. A framework defect when load xml file
+                        if l_list.nodeType == xml.dom.Node.TEXT_NODE:
+                            continue                        
+                        
+                        
+                        l_value = None
+                        # Looking for node value
+                        for nv in l_list.childNodes:
+                            if nv.nodeType == xml.dom.Node.TEXT_NODE:
+                                continue
+                            else:
+                                l_value = nv
+                                break
+                        
+                        if MagicSerializer._isSimple(l_value):
+                            object_result_.__dict__[at_value].append(l_value)
                         else:
-                            object_result_.__dict__[at_value].append(t)
+                            class_type = None
+                            exec("from %s import *" % MagicSerializer._libraries )
+                            exec("class_type=%s" % l_value.nodeName)                            
+                            object_result_.__dict__[at_value].append(MagicSerializer._deserialize(class_type, l_list))
+
     # END _exploreParams
     #
     
