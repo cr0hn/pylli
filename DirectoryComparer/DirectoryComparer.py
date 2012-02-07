@@ -190,6 +190,8 @@ def Credits():
         print ""
         print "Daniel Garcia (cr0hn) - dani@iniqua.com"
         print ""
+        print "Looking for equals files into 2 directories"
+        print ""
 # END Credits
 #
 
