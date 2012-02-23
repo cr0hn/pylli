@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pastebin</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;pastebin
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="pastebin-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="pastebin-module.html">Module pastebin</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2009-2012, Mario Vilas</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># All rights reserved.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># Redistribution and use in source and binary forms, with or without</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># modification, are permitted provided that the following conditions are met:</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment">#     * Redistributions of source code must retain the above copyright notice,</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#       this list of conditions and the following disclaimer.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment">#     * Redistributions in binary form must reproduce the above copyright</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment">#       notice,this list of conditions and the following disclaimer in the</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment">#       documentation and/or other materials provided with the distribution.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#     * Neither the name of the copyright holder nor the names of its</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#       contributors may be used to endorse or promote products derived from</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#       this software without specific prior written permission.</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># POSSIBILITY OF SUCH DAMAGE.</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">Unofficial pastebin.com API for Python</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">by Mario Vilas (mvilas at gmail dot com)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">Unlike the official API, this one doesn't require an API key.</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">U{http://breakingcode.wordpress.com/2012/01/27/pasting-anonymously-to-pastebin-com/}</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">U{http://breakingcode.wordpress.com/2010/03/06/using-the-pastebin-api-with-python/}</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">Usage examples::</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; from pastebin import submit</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt;</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; # Submit a simple text message.</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">    ... url = submit("This is a test message.")</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; print url</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring">    http://pastebin.com/G4YWsB1a</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt;</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; # Submit a simple "hello world" code in Python.</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">    ... # Paste expires in 10 minutes.</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">    ... url = submit("print \"Hello world!\"",</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">    ...               paste_format="python",</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">    ...               paste_expire_date="10M")</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; print url</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">    http://pastebin.com/rKEVDWHP</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt;</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; # Submit Apache's logs as a private paste.</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring">    ... # Give the paste a title.</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">    ... url = submit(open('/var/log/apache/access.log', 'r').read(),</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">    ...              paste_format="apache",</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">    ...              paste_private=True,</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring">    ...              paste_name="My Apache access logs")</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; print url</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    http://pastebin.com/kfepMRLh</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt;</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-name">__all__</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'submit'</tt><tt class="py-op">,</tt> <tt class="py-string">'Pastebin'</tt><tt class="py-op">,</tt> <tt class="py-string">'PastebinError'</tt><tt class="py-op">]</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">urllib</tt> </tt>
+<a name="PastebinError"></a><div id="PastebinError-def"><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt> <a class="py-toggle" href="#" id="PastebinError-toggle" onclick="return toggle('PastebinError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="pastebin.PastebinError-class.html">PastebinError</a><tt class="py-op">(</tt><tt class="py-base-class">RuntimeError</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PastebinError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PastebinError-expanded"><a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring">    Pastebin API error.</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">    The error message returned by the web application is stored as the Python</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-docstring">    exception message.</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+</div><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="Pastebin"></a><div id="Pastebin-def"><a name="L79"></a><tt class="py-lineno"> 79</tt> <a class="py-toggle" href="#" id="Pastebin-toggle" onclick="return toggle('Pastebin');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="pastebin.Pastebin-class.html">Pastebin</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Pastebin-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Pastebin-expanded"><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-docstring">    Unofficial python interface to the Pastebin legacy API.</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"><tt class="py-docstring">    Unlike the official API, this one doesn't require an API key, so it's</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"><tt class="py-docstring">    virtually anonymous.</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-docstring">    @warn: To be B{completely} anonymous you'll have to hide your IP address as</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">        well, either by using an HTTP proxy or the Tor network.</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">        To use an HTTP proxy, set the HTTP_PROXY environment variable as per</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">        the documentation of the Python standard C{urllib} module:</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-docstring">        U{http://docs.python.org/library/urllib.html}</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-docstring">        To go through the Tor network, consult the following Wiki document:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-docstring">        U{https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO}</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring">    @type paste_expire_date: tuple(str)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-docstring">    @cvar paste_expire_date: Valid C{paste_expire_date} values, see L{submit}.</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">    @type paste_format: tuple(str)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">    @cvar paste_format: Valid C{parse_format} values, see L{submit}.</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-comment"># Base domain name</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt id="link-0" class="py-name" targets="Variable pastebin.Pastebin._base_domain=pastebin.Pastebin-class.html#_base_domain"><a title="pastebin.Pastebin._base_domain" class="py-name" href="#" onclick="return doclink('link-0', '_base_domain', 'link-0');">_base_domain</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'pastebin.com'</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-comment"># Valid Pastebin URLs begin with this string</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt id="link-1" class="py-name" targets="Variable pastebin.Pastebin._prefix_url=pastebin.Pastebin-class.html#_prefix_url"><a title="pastebin.Pastebin._prefix_url" class="py-name" href="#" onclick="return doclink('link-1', '_prefix_url', 'link-1');">_prefix_url</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'http://%s/'</tt> <tt class="py-op">%</tt> <tt id="link-2" class="py-name"><a title="pastebin.Pastebin._base_domain" class="py-name" href="#" onclick="return doclink('link-2', '_base_domain', 'link-0');">_base_domain</a></tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-comment"># Valid Pastebin URLs with a custom subdomain begin with this string</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Variable pastebin.Pastebin._subdomain_url=pastebin.Pastebin-class.html#_subdomain_url"><a title="pastebin.Pastebin._subdomain_url" class="py-name" href="#" onclick="return doclink('link-3', '_subdomain_url', 'link-3');">_subdomain_url</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'http://%%s.%s/'</tt> <tt class="py-op">%</tt> <tt id="link-4" class="py-name"><a title="pastebin.Pastebin._base_domain" class="py-name" href="#" onclick="return doclink('link-4', '_base_domain', 'link-0');">_base_domain</a></tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-comment"># URL to the POST API</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt id="link-5" class="py-name" targets="Variable pastebin.Pastebin._api_url=pastebin.Pastebin-class.html#_api_url"><a title="pastebin.Pastebin._api_url" class="py-name" href="#" onclick="return doclink('link-5', '_api_url', 'link-5');">_api_url</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'http://%s/api_public.php'</tt> <tt class="py-op">%</tt> <tt id="link-6" class="py-name"><a title="pastebin.Pastebin._base_domain" class="py-name" href="#" onclick="return doclink('link-6', '_base_domain', 'link-0');">_base_domain</a></tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-comment"># Valid paste_expire_date values</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt id="link-7" class="py-name" targets="Variable pastebin.Pastebin.paste_expire_date=pastebin.Pastebin-class.html#paste_expire_date"><a title="pastebin.Pastebin.paste_expire_date" class="py-name" href="#" onclick="return doclink('link-7', 'paste_expire_date', 'link-7');">paste_expire_date</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-string">'N'</tt><tt class="py-op">,</tt> <tt class="py-string">'10M'</tt><tt class="py-op">,</tt> <tt class="py-string">'1H'</tt><tt class="py-op">,</tt> <tt class="py-string">'1D'</tt><tt class="py-op">,</tt> <tt class="py-string">'1M'</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-comment"># Valid parse_format values</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">    <tt id="link-8" class="py-name" targets="Variable pastebin.Pastebin.paste_format=pastebin.Pastebin-class.html#paste_format"><a title="pastebin.Pastebin.paste_format" class="py-name" href="#" onclick="return doclink('link-8', 'paste_format', 'link-8');">paste_format</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-string">'4cs'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># 4CS</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-string">'6502acme'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># 6502 ACME Cross Assembler</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-string">'6502kickass'</tt><tt class="py-op">,</tt>      <tt class="py-comment"># 6502 Kick Assembler</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-string">'6502tasm'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># 6502 TASM/64TASS</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-string">'abap'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># ABAP</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-string">'actionscript'</tt><tt class="py-op">,</tt>     <tt class="py-comment"># ActionScript</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-string">'actionscript3'</tt><tt class="py-op">,</tt>    <tt class="py-comment"># ActionScript 3</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-string">'ada'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># Ada</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-string">'algol68'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># ALGOL 68</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-string">'apache'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Apache Log</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-string">'applescript'</tt><tt class="py-op">,</tt>      <tt class="py-comment"># AppleScript</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-string">'apt_sources'</tt><tt class="py-op">,</tt>      <tt class="py-comment"># APT Sources</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-string">'asm'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># ASM (NASM)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-string">'asp'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># ASP</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-string">'autoconf'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># autoconf</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-string">'autohotkey'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># Autohotkey</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">        <tt class="py-string">'autoit'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># AutoIt</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-string">'avisynth'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># Avisynth</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-string">'awk'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># Awk</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-string">'bascomavr'</tt><tt class="py-op">,</tt>        <tt class="py-comment"># BASCOM AVR</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-string">'bash'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Bash</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-string">'basic4gl'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># Basic4GL</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-string">'bibtex'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># BibTeX</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-string">'blitzbasic'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># Blitz Basic</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-string">'bnf'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># BNF</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-string">'boo'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># BOO</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-string">'bf'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># BrainFuck</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-string">'c'</tt><tt class="py-op">,</tt>                <tt class="py-comment"># C</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-string">'c_mac'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># C for Macs</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-string">'cil'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># C Intermediate Language</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-string">'csharp'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># C#</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-string">'cpp'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># C++</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-string">'cpp-qt'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># C++ (with QT extensions)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-string">'c_loadrunner'</tt><tt class="py-op">,</tt>     <tt class="py-comment"># C: Loadrunner</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">        <tt class="py-string">'caddcl'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># CAD DCL</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-string">'cadlisp'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># CAD Lisp</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-string">'cfdg'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># CFDG</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">        <tt class="py-string">'chaiscript'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># ChaiScript</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-string">'clojure'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Clojure</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-string">'klonec'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Clone C</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-string">'klonecpp'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># Clone C++</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-string">'cmake'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># CMake</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-string">'cobol'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># COBOL</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-string">'coffeescript'</tt><tt class="py-op">,</tt>     <tt class="py-comment"># CoffeeScript</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-string">'cfm'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># ColdFusion</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-string">'css'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># CSS</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">        <tt class="py-string">'cuesheet'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># Cuesheet</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">        <tt class="py-string">'d'</tt><tt class="py-op">,</tt>                <tt class="py-comment"># D</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-string">'dcs'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># DCS</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-string">'delphi'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Delphi</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">        <tt class="py-string">'oxygene'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Delphi Prism (Oxygene)</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-string">'diff'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Diff</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-string">'div'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># DIV</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-string">'dos'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># DOS</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-string">'dot'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># DOT</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-string">'e'</tt><tt class="py-op">,</tt>                <tt class="py-comment"># E</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-string">'ecmascript'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># ECMAScript</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt class="py-string">'eiffel'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Eiffel</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-string">'email'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Email</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-string">'epc'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># EPC</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">        <tt class="py-string">'erlang'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Erlang</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt class="py-string">'fsharp'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># F#</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">        <tt class="py-string">'falcon'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Falcon</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-string">'fo'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># FO Language</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-string">'f1'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># Formula One</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-string">'fortran'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Fortran</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-string">'freebasic'</tt><tt class="py-op">,</tt>        <tt class="py-comment"># FreeBasic</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-string">'freeswitch'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># FreeSWITCH</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-string">'gambas'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># GAMBAS</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-string">'gml'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># Game Maker</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-string">'gdb'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># GDB</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-string">'genero'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Genero</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-string">'genie'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Genie</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt class="py-string">'gettext'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># GetText</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">        <tt class="py-string">'go'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># Go</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-string">'groovy'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Groovy</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-string">'gwbasic'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># GwBasic</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-string">'haskell'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Haskell</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-string">'hicest'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># HicEst</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-string">'hq9plus'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># HQ9 Plus</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-string">'html4strict'</tt><tt class="py-op">,</tt>      <tt class="py-comment"># HTML</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-string">'html5'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># HTML 5</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-string">'icon'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Icon</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt class="py-string">'idl'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># IDL</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-string">'ini'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># INI file</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-string">'inno'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Inno Script</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-string">'intercal'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># INTERCAL</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-string">'io'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># IO</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt class="py-string">'j'</tt><tt class="py-op">,</tt>                <tt class="py-comment"># J</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">        <tt class="py-string">'java'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Java</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-string">'java5'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Java 5</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">        <tt class="py-string">'javascript'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># JavaScript</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-string">'jquery'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># jQuery</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">        <tt class="py-string">'kixtart'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># KiXtart</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-string">'latex'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Latex</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">        <tt class="py-string">'lb'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># Liberty BASIC</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">        <tt class="py-string">'lsl2'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Linden Scripting</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">        <tt class="py-string">'lisp'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Lisp</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">        <tt class="py-string">'llvm'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># LLVM</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-string">'locobasic'</tt><tt class="py-op">,</tt>        <tt class="py-comment"># Loco Basic</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">        <tt class="py-string">'logtalk'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Logtalk</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">        <tt class="py-string">'lolcode'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># LOL Code</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">        <tt class="py-string">'lotusformulas'</tt><tt class="py-op">,</tt>    <tt class="py-comment"># Lotus Formulas</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">        <tt class="py-string">'lotusscript'</tt><tt class="py-op">,</tt>      <tt class="py-comment"># Lotus Script</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">        <tt class="py-string">'lscript'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># LScript</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">        <tt class="py-string">'lua'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># Lua</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">        <tt class="py-string">'m68k'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># M68000 Assembler</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">        <tt class="py-string">'magiksf'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># MagikSF</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">        <tt class="py-string">'make'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Make</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">        <tt class="py-string">'mapbasic'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># MapBasic</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">        <tt class="py-string">'matlab'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># MatLab</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">        <tt class="py-string">'mirc'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># mIRC</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">        <tt class="py-string">'mmix'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># MIX Assembler</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">        <tt class="py-string">'modula2'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Modula 2</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">        <tt class="py-string">'modula3'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Modula 3</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">        <tt class="py-string">'68000devpac'</tt><tt class="py-op">,</tt>      <tt class="py-comment"># Motorola 68000 HiSoft Dev</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">        <tt class="py-string">'mpasm'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># MPASM</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">        <tt class="py-string">'mxml'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># MXML</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-string">'mysql'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># MySQL</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">        <tt class="py-string">'newlisp'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># newLISP</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">        <tt class="py-string">'text'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># None</tt> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-string">'nsis'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># NullSoft Installer</tt> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">        <tt class="py-string">'oberon2'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Oberon 2</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">        <tt class="py-string">'objeck'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Objeck Programming Langua</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt class="py-string">'objc'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Objective C</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">        <tt class="py-string">'ocaml-brief'</tt><tt class="py-op">,</tt>      <tt class="py-comment"># OCalm Brief</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">        <tt class="py-string">'ocaml'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># OCaml</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">        <tt class="py-string">'pf'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># OpenBSD PACKET FILTER</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">        <tt class="py-string">'glsl'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># OpenGL Shading</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">        <tt class="py-string">'oobas'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Openoffice BASIC</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">        <tt class="py-string">'oracle11'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># Oracle 11</tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line">        <tt class="py-string">'oracle8'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Oracle 8</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">        <tt class="py-string">'oz'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># Oz</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">        <tt class="py-string">'pascal'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Pascal</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">        <tt class="py-string">'pawn'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># PAWN</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">        <tt class="py-string">'pcre'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># PCRE</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">        <tt class="py-string">'per'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># Per</tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">        <tt class="py-string">'perl'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Perl</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt class="py-string">'perl6'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Perl 6</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">        <tt class="py-string">'php'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># PHP</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">        <tt class="py-string">'php-brief'</tt><tt class="py-op">,</tt>        <tt class="py-comment"># PHP Brief</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">        <tt class="py-string">'pic16'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Pic 16</tt> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">        <tt class="py-string">'pike'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Pike</tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line">        <tt class="py-string">'pixelbender'</tt><tt class="py-op">,</tt>      <tt class="py-comment"># Pixel Bender</tt> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line">        <tt class="py-string">'plsql'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># PL/SQL</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line">        <tt class="py-string">'postgresql'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># PostgreSQL</tt> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">        <tt class="py-string">'povray'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># POV-Ray</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line">        <tt class="py-string">'powershell'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># Power Shell</tt> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">        <tt class="py-string">'powerbuilder'</tt><tt class="py-op">,</tt>     <tt class="py-comment"># PowerBuilder</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">        <tt class="py-string">'proftpd'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># ProFTPd</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line">        <tt class="py-string">'progress'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># Progress</tt> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line">        <tt class="py-string">'prolog'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Prolog</tt> </tt>
+<a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line">        <tt class="py-string">'properties'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># Properties</tt> </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line">        <tt class="py-string">'providex'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># ProvideX</tt> </tt>
+<a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line">        <tt class="py-string">'purebasic'</tt><tt class="py-op">,</tt>        <tt class="py-comment"># PureBasic</tt> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line">        <tt class="py-string">'pycon'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># PyCon</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line">        <tt class="py-string">'python'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Python</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line">        <tt class="py-string">'q'</tt><tt class="py-op">,</tt>                <tt class="py-comment"># q/kdb+</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">        <tt class="py-string">'qbasic'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># QBasic</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">        <tt class="py-string">'rsplus'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># R</tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line">        <tt class="py-string">'rails'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Rails</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line">        <tt class="py-string">'rebol'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># REBOL</tt> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line">        <tt class="py-string">'reg'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># REG</tt> </tt>
+<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line">        <tt class="py-string">'robots'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Robots</tt> </tt>
+<a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line">        <tt class="py-string">'rpmspec'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># RPM Spec</tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line">        <tt class="py-string">'ruby'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Ruby</tt> </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line">        <tt class="py-string">'gnuplot'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># Ruby Gnuplot</tt> </tt>
+<a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line">        <tt class="py-string">'sas'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># SAS</tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line">        <tt class="py-string">'scala'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># Scala</tt> </tt>
+<a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line">        <tt class="py-string">'scheme'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Scheme</tt> </tt>
+<a name="L290"></a><tt class="py-lineno">290</tt>  <tt class="py-line">        <tt class="py-string">'scilab'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Scilab</tt> </tt>
+<a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line">        <tt class="py-string">'sdlbasic'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># SdlBasic</tt> </tt>
+<a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line">        <tt class="py-string">'smalltalk'</tt><tt class="py-op">,</tt>        <tt class="py-comment"># Smalltalk</tt> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line">        <tt class="py-string">'smarty'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Smarty</tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line">        <tt class="py-string">'sql'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># SQL</tt> </tt>
+<a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line">        <tt class="py-string">'systemverilog'</tt><tt class="py-op">,</tt>    <tt class="py-comment"># SystemVerilog</tt> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line">        <tt class="py-string">'tsql'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># T-SQL</tt> </tt>
+<a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line">        <tt class="py-string">'tcl'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># TCL</tt> </tt>
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line">        <tt class="py-string">'teraterm'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># Tera Term</tt> </tt>
+<a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line">        <tt class="py-string">'thinbasic'</tt><tt class="py-op">,</tt>        <tt class="py-comment"># thinBasic</tt> </tt>
+<a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line">        <tt class="py-string">'typoscript'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># TypoScript</tt> </tt>
+<a name="L301"></a><tt class="py-lineno">301</tt>  <tt class="py-line">        <tt class="py-string">'unicon'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># Unicon</tt> </tt>
+<a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line">        <tt class="py-string">'uscript'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># UnrealScript</tt> </tt>
+<a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line">        <tt class="py-string">'vala'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># Vala</tt> </tt>
+<a name="L304"></a><tt class="py-lineno">304</tt>  <tt class="py-line">        <tt class="py-string">'vbnet'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># VB.NET</tt> </tt>
+<a name="L305"></a><tt class="py-lineno">305</tt>  <tt class="py-line">        <tt class="py-string">'verilog'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># VeriLog</tt> </tt>
+<a name="L306"></a><tt class="py-lineno">306</tt>  <tt class="py-line">        <tt class="py-string">'vhdl'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># VHDL</tt> </tt>
+<a name="L307"></a><tt class="py-lineno">307</tt>  <tt class="py-line">        <tt class="py-string">'vim'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># VIM</tt> </tt>
+<a name="L308"></a><tt class="py-lineno">308</tt>  <tt class="py-line">        <tt class="py-string">'visualprolog'</tt><tt class="py-op">,</tt>     <tt class="py-comment"># Visual Pro Log</tt> </tt>
+<a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line">        <tt class="py-string">'vb'</tt><tt class="py-op">,</tt>               <tt class="py-comment"># VisualBasic</tt> </tt>
+<a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line">        <tt class="py-string">'visualfoxpro'</tt><tt class="py-op">,</tt>     <tt class="py-comment"># VisualFoxPro</tt> </tt>
+<a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line">        <tt class="py-string">'whitespace'</tt><tt class="py-op">,</tt>       <tt class="py-comment"># WhiteSpace</tt> </tt>
+<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line">        <tt class="py-string">'whois'</tt><tt class="py-op">,</tt>            <tt class="py-comment"># WHOIS</tt> </tt>
+<a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line">        <tt class="py-string">'winbatch'</tt><tt class="py-op">,</tt>         <tt class="py-comment"># Winbatch</tt> </tt>
+<a name="L314"></a><tt class="py-lineno">314</tt>  <tt class="py-line">        <tt class="py-string">'xbasic'</tt><tt class="py-op">,</tt>           <tt class="py-comment"># XBasic</tt> </tt>
+<a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">        <tt class="py-string">'xml'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># XML</tt> </tt>
+<a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">        <tt class="py-string">'xorg_conf'</tt><tt class="py-op">,</tt>        <tt class="py-comment"># Xorg Config</tt> </tt>
+<a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line">        <tt class="py-string">'xpp'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># XPP</tt> </tt>
+<a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line">        <tt class="py-string">'yaml'</tt><tt class="py-op">,</tt>             <tt class="py-comment"># YAML</tt> </tt>
+<a name="L319"></a><tt class="py-lineno">319</tt>  <tt class="py-line">        <tt class="py-string">'z80'</tt><tt class="py-op">,</tt>              <tt class="py-comment"># Z80 Assembler</tt> </tt>
+<a name="L320"></a><tt class="py-lineno">320</tt>  <tt class="py-line">        <tt class="py-string">'zxbasic'</tt><tt class="py-op">,</tt>          <tt class="py-comment"># ZXBasic</tt> </tt>
+<a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L322"></a><tt class="py-lineno">322</tt>  <tt class="py-line"> </tt>
+<a name="L323"></a><tt class="py-lineno">323</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">classmethod</tt> </tt>
+<a name="Pastebin.submit"></a><div id="Pastebin.submit-def"><a name="L324"></a><tt class="py-lineno">324</tt> <a class="py-toggle" href="#" id="Pastebin.submit-toggle" onclick="return toggle('Pastebin.submit');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="pastebin.Pastebin-class.html#submit">submit</a><tt class="py-op">(</tt><tt class="py-param">cls</tt><tt class="py-op">,</tt> <tt class="py-param">paste_code</tt><tt class="py-op">,</tt> </tt>
+<a name="L325"></a><tt class="py-lineno">325</tt>  <tt class="py-line">                <tt class="py-param">paste_name</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">paste_private</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L326"></a><tt class="py-lineno">326</tt>  <tt class="py-line">                <tt class="py-param">paste_expire_date</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">paste_format</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Pastebin.submit-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Pastebin.submit-expanded"><a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L328"></a><tt class="py-lineno">328</tt>  <tt class="py-line"><tt class="py-docstring">        Submit a code snippet to Pastebin.</tt> </tt>
+<a name="L329"></a><tt class="py-lineno">329</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L330"></a><tt class="py-lineno">330</tt>  <tt class="py-line"><tt class="py-docstring">        @type  paste_code: str</tt> </tt>
+<a name="L331"></a><tt class="py-lineno">331</tt>  <tt class="py-line"><tt class="py-docstring">        @param paste_code: Code or text to send to U{http://pastebin.com}.</tt> </tt>
+<a name="L332"></a><tt class="py-lineno">332</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L333"></a><tt class="py-lineno">333</tt>  <tt class="py-line"><tt class="py-docstring">        @type  paste_name: str</tt> </tt>
+<a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line"><tt class="py-docstring">        @param paste_name: (Optional) Name of the author of the paste.</tt> </tt>
+<a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line"><tt class="py-docstring">            Default is to paste anonymously.</tt> </tt>
+<a name="L336"></a><tt class="py-lineno">336</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L337"></a><tt class="py-lineno">337</tt>  <tt class="py-line"><tt class="py-docstring">        @type  paste_private: bool</tt> </tt>
+<a name="L338"></a><tt class="py-lineno">338</tt>  <tt class="py-line"><tt class="py-docstring">        @param paste_private: (Optional) C{True} if the paste is private (only</tt> </tt>
+<a name="L339"></a><tt class="py-lineno">339</tt>  <tt class="py-line"><tt class="py-docstring">            visible with the link), C{False} if it's public (indexed and</tt> </tt>
+<a name="L340"></a><tt class="py-lineno">340</tt>  <tt class="py-line"><tt class="py-docstring">            searchable). The Pastebin FAQ (U{http://pastebin.com/faq}) claims</tt> </tt>
+<a name="L341"></a><tt class="py-lineno">341</tt>  <tt class="py-line"><tt class="py-docstring">            private pastes are not indexed by search engines (aka Google).</tt> </tt>
+<a name="L342"></a><tt class="py-lineno">342</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L343"></a><tt class="py-lineno">343</tt>  <tt class="py-line"><tt class="py-docstring">        @type  paste_expire_date: str</tt> </tt>
+<a name="L344"></a><tt class="py-lineno">344</tt>  <tt class="py-line"><tt class="py-docstring">        @param paste_expire_date: (Optional) Expiration date for the paste.</tt> </tt>
+<a name="L345"></a><tt class="py-lineno">345</tt>  <tt class="py-line"><tt class="py-docstring">            Once past this date the paste is deleted automatically. Valid</tt> </tt>
+<a name="L346"></a><tt class="py-lineno">346</tt>  <tt class="py-line"><tt class="py-docstring">            values are found in the L{Pastebin.paste_expire_date} class member.</tt> </tt>
+<a name="L347"></a><tt class="py-lineno">347</tt>  <tt class="py-line"><tt class="py-docstring">            If not provided, the paste never expires.</tt> </tt>
+<a name="L348"></a><tt class="py-lineno">348</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L349"></a><tt class="py-lineno">349</tt>  <tt class="py-line"><tt class="py-docstring">        @type  paste_format: str</tt> </tt>
+<a name="L350"></a><tt class="py-lineno">350</tt>  <tt class="py-line"><tt class="py-docstring">        @param paste_format: (Optional) Programming language of the code being</tt> </tt>
+<a name="L351"></a><tt class="py-lineno">351</tt>  <tt class="py-line"><tt class="py-docstring">            pasted. This enables syntax highlighting when reading the code in</tt> </tt>
+<a name="L352"></a><tt class="py-lineno">352</tt>  <tt class="py-line"><tt class="py-docstring">            U{http://pastebin.com}. Default is no syntax highlighting (text is</tt> </tt>
+<a name="L353"></a><tt class="py-lineno">353</tt>  <tt class="py-line"><tt class="py-docstring">            just text and not source code).</tt> </tt>
+<a name="L354"></a><tt class="py-lineno">354</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L355"></a><tt class="py-lineno">355</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:  str</tt> </tt>
+<a name="L356"></a><tt class="py-lineno">356</tt>  <tt class="py-line"><tt class="py-docstring">        @return: Returns the URL to the newly created paste.</tt> </tt>
+<a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L358"></a><tt class="py-lineno">358</tt>  <tt class="py-line"><tt class="py-docstring">        @raise PastebinError: The Pastebin API has returned an error message.</tt> </tt>
+<a name="L359"></a><tt class="py-lineno">359</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line"><tt class="py-docstring">        @raise IOError: An error occurred when contacting the Pastebin web</tt> </tt>
+<a name="L361"></a><tt class="py-lineno">361</tt>  <tt class="py-line"><tt class="py-docstring">            application. This is typically caused by network errors.</tt> </tt>
+<a name="L362"></a><tt class="py-lineno">362</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L363"></a><tt class="py-lineno">363</tt>  <tt class="py-line"> </tt>
+<a name="L364"></a><tt class="py-lineno">364</tt>  <tt class="py-line">        <tt class="py-comment"># Code snippet to submit</tt> </tt>
+<a name="L365"></a><tt class="py-lineno">365</tt>  <tt class="py-line">        <tt class="py-name">argv</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> <tt class="py-string">'paste_code'</tt> <tt class="py-op">:</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">paste_code</tt><tt class="py-op">)</tt> <tt class="py-op">}</tt> </tt>
+<a name="L366"></a><tt class="py-lineno">366</tt>  <tt class="py-line"> </tt>
+<a name="L367"></a><tt class="py-lineno">367</tt>  <tt class="py-line">        <tt class="py-comment"># Name of the poster</tt> </tt>
+<a name="L368"></a><tt class="py-lineno">368</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">paste_name</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L369"></a><tt class="py-lineno">369</tt>  <tt class="py-line">            <tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-string">'paste_name'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">paste_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L370"></a><tt class="py-lineno">370</tt>  <tt class="py-line"> </tt>
+<a name="L371"></a><tt class="py-lineno">371</tt>  <tt class="py-line">        <tt class="py-comment"># Is the snippet private?</tt> </tt>
+<a name="L372"></a><tt class="py-lineno">372</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">paste_private</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L373"></a><tt class="py-lineno">373</tt>  <tt class="py-line">            <tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-string">'paste_private'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">bool</tt><tt class="py-op">(</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">paste_private</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L374"></a><tt class="py-lineno">374</tt>  <tt class="py-line"> </tt>
+<a name="L375"></a><tt class="py-lineno">375</tt>  <tt class="py-line">        <tt class="py-comment"># Expiration for the snippet</tt> </tt>
+<a name="L376"></a><tt class="py-lineno">376</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-9" class="py-name"><a title="pastebin.Pastebin.paste_expire_date" class="py-name" href="#" onclick="return doclink('link-9', 'paste_expire_date', 'link-7');">paste_expire_date</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L377"></a><tt class="py-lineno">377</tt>  <tt class="py-line">            <tt id="link-10" class="py-name"><a title="pastebin.Pastebin.paste_expire_date" class="py-name" href="#" onclick="return doclink('link-10', 'paste_expire_date', 'link-7');">paste_expire_date</a></tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="pastebin.Pastebin.paste_expire_date" class="py-name" href="#" onclick="return doclink('link-11', 'paste_expire_date', 'link-7');">paste_expire_date</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">upper</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L378"></a><tt class="py-lineno">378</tt>  <tt class="py-line">            <tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-string">'paste_expire_date'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="pastebin.Pastebin.paste_expire_date" class="py-name" href="#" onclick="return doclink('link-12', 'paste_expire_date', 'link-7');">paste_expire_date</a></tt> </tt>
+<a name="L379"></a><tt class="py-lineno">379</tt>  <tt class="py-line"> </tt>
+<a name="L380"></a><tt class="py-lineno">380</tt>  <tt class="py-line">        <tt class="py-comment"># Syntax highlighting</tt> </tt>
+<a name="L381"></a><tt class="py-lineno">381</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-13" class="py-name"><a title="pastebin.Pastebin.paste_format" class="py-name" href="#" onclick="return doclink('link-13', 'paste_format', 'link-8');">paste_format</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L382"></a><tt class="py-lineno">382</tt>  <tt class="py-line">            <tt id="link-14" class="py-name"><a title="pastebin.Pastebin.paste_format" class="py-name" href="#" onclick="return doclink('link-14', 'paste_format', 'link-8');">paste_format</a></tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt id="link-15" class="py-name"><a title="pastebin.Pastebin.paste_format" class="py-name" href="#" onclick="return doclink('link-15', 'paste_format', 'link-8');">paste_format</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L383"></a><tt class="py-lineno">383</tt>  <tt class="py-line">            <tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-string">'paste_format'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name"><a title="pastebin.Pastebin.paste_format" class="py-name" href="#" onclick="return doclink('link-16', 'paste_format', 'link-8');">paste_format</a></tt> </tt>
+<a name="L384"></a><tt class="py-lineno">384</tt>  <tt class="py-line"> </tt>
+<a name="L385"></a><tt class="py-lineno">385</tt>  <tt class="py-line">        <tt class="py-comment"># Make the request to the Pastebin API</tt> </tt>
+<a name="L386"></a><tt class="py-lineno">386</tt>  <tt class="py-line">        <tt class="py-name">fd</tt> <tt class="py-op">=</tt> <tt class="py-name">urllib</tt><tt class="py-op">.</tt><tt class="py-name">urlopen</tt><tt class="py-op">(</tt><tt class="py-name">cls</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="pastebin.Pastebin._api_url" class="py-name" href="#" onclick="return doclink('link-17', '_api_url', 'link-5');">_api_url</a></tt><tt class="py-op">,</tt> <tt class="py-name">urllib</tt><tt class="py-op">.</tt><tt class="py-name">urlencode</tt><tt class="py-op">(</tt><tt class="py-name">argv</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L387"></a><tt class="py-lineno">387</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L388"></a><tt class="py-lineno">388</tt>  <tt class="py-line">            <tt class="py-name">response</tt> <tt class="py-op">=</tt> <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt class="py-name">read</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L389"></a><tt class="py-lineno">389</tt>  <tt class="py-line">        <tt class="py-keyword">finally</tt><tt class="py-op">:</tt> </tt>
+<a name="L390"></a><tt class="py-lineno">390</tt>  <tt class="py-line">            <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L391"></a><tt class="py-lineno">391</tt>  <tt class="py-line">        <tt class="py-keyword">del</tt> <tt class="py-name">fd</tt> </tt>
+<a name="L392"></a><tt class="py-lineno">392</tt>  <tt class="py-line"> </tt>
+<a name="L393"></a><tt class="py-lineno">393</tt>  <tt class="py-line">        <tt class="py-comment"># Return the new snippet URL on success, raise exception on error</tt> </tt>
+<a name="L394"></a><tt class="py-lineno">394</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">response</tt><tt class="py-op">.</tt><tt class="py-name">startswith</tt><tt class="py-op">(</tt><tt class="py-name">cls</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="pastebin.Pastebin._prefix_url" class="py-name" href="#" onclick="return doclink('link-18', '_prefix_url', 'link-1');">_prefix_url</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L395"></a><tt class="py-lineno">395</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-19" class="py-name" targets="Class pastebin.PastebinError=pastebin.PastebinError-class.html"><a title="pastebin.PastebinError" class="py-name" href="#" onclick="return doclink('link-19', 'PastebinError', 'link-19');">PastebinError</a></tt><tt class="py-op">(</tt><tt class="py-name">response</tt><tt class="py-op">)</tt> </tt>
+<a name="L396"></a><tt class="py-lineno">396</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">response</tt> </tt>
+</div></div><a name="L397"></a><tt class="py-lineno">397</tt>  <tt class="py-line"> </tt>
+<a name="L398"></a><tt class="py-lineno">398</tt>  <tt class="py-line"><tt class="py-comment"># Simple interface.</tt> </tt>
+<a name="L399"></a><tt class="py-lineno">399</tt>  <tt class="py-line"><tt id="link-20" class="py-name" targets="Class Method pastebin.Pastebin.submit()=pastebin.Pastebin-class.html#submit,Function pastebin.submit()=pastebin-module.html#submit"><a title="pastebin.Pastebin.submit
+pastebin.submit" class="py-name" href="#" onclick="return doclink('link-20', 'submit', 'link-20');">submit</a></tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name" targets="Class pastebin.Pastebin=pastebin.Pastebin-class.html"><a title="pastebin.Pastebin" class="py-name" href="#" onclick="return doclink('link-21', 'Pastebin', 'link-21');">Pastebin</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="pastebin.Pastebin.submit
+pastebin.submit" class="py-name" href="#" onclick="return doclink('link-22', 'submit', 'link-20');">submit</a></tt> </tt>
+<a name="L400"></a><tt class="py-lineno">400</tt>  <tt class="py-line"> </tt>
+<a name="L401"></a><tt class="py-lineno">401</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L402"></a><tt class="py-lineno">402</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L403"></a><tt class="py-lineno">403</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt class="py-name">optparse</tt> </tt>
+<a name="L404"></a><tt class="py-lineno">404</tt>  <tt class="py-line"> </tt>
+<a name="L405"></a><tt class="py-lineno">405</tt>  <tt class="py-line">    <tt class="py-comment"># Build the command line parser</tt> </tt>
+<a name="L406"></a><tt class="py-lineno">406</tt>  <tt class="py-line">    <tt class="py-name">parser</tt> <tt class="py-op">=</tt> <tt class="py-name">optparse</tt><tt class="py-op">.</tt><tt class="py-name">OptionParser</tt><tt class="py-op">(</tt><tt class="py-name">usage</tt> <tt class="py-op">=</tt> <tt class="py-string">'%prog &lt;file&gt; [options]'</tt><tt class="py-op">)</tt> </tt>
+<a name="L407"></a><tt class="py-lineno">407</tt>  <tt class="py-line">    <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">"-n"</tt><tt class="py-op">,</tt> <tt class="py-string">"--name"</tt><tt class="py-op">,</tt> </tt>
+<a name="L408"></a><tt class="py-lineno">408</tt>  <tt class="py-line">                      <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> <tt class="py-name">type</tt><tt class="py-op">=</tt><tt class="py-string">"string"</tt><tt class="py-op">,</tt> <tt class="py-name">metavar</tt><tt class="py-op">=</tt><tt class="py-string">"NAME"</tt><tt class="py-op">,</tt> </tt>
+<a name="L409"></a><tt class="py-lineno">409</tt>  <tt class="py-line">                      <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"author of the code to submit"</tt><tt class="py-op">)</tt> </tt>
+<a name="L410"></a><tt class="py-lineno">410</tt>  <tt class="py-line">    <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">"--private"</tt><tt class="py-op">,</tt> </tt>
+<a name="L411"></a><tt class="py-lineno">411</tt>  <tt class="py-line">                      <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt> </tt>
+<a name="L412"></a><tt class="py-lineno">412</tt>  <tt class="py-line">                      <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"the snippet is private"</tt><tt class="py-op">)</tt> </tt>
+<a name="L413"></a><tt class="py-lineno">413</tt>  <tt class="py-line">    <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">"--public"</tt><tt class="py-op">,</tt> </tt>
+<a name="L414"></a><tt class="py-lineno">414</tt>  <tt class="py-line">                      <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">"store_false"</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">"private"</tt><tt class="py-op">,</tt> </tt>
+<a name="L415"></a><tt class="py-lineno">415</tt>  <tt class="py-line">                      <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"the snippet is public"</tt><tt class="py-op">)</tt> </tt>
+<a name="L416"></a><tt class="py-lineno">416</tt>  <tt class="py-line">    <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">"-e"</tt><tt class="py-op">,</tt> <tt class="py-string">"--expire"</tt><tt class="py-op">,</tt> </tt>
+<a name="L417"></a><tt class="py-lineno">417</tt>  <tt class="py-line">                      <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> <tt class="py-name">type</tt><tt class="py-op">=</tt><tt class="py-string">"string"</tt><tt class="py-op">,</tt> <tt class="py-name">metavar</tt><tt class="py-op">=</tt><tt class="py-string">"TIME"</tt><tt class="py-op">,</tt> </tt>
+<a name="L418"></a><tt class="py-lineno">418</tt>  <tt class="py-line">                      <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"expiration time: N (never), 10M (10 minutes), 1H (1 hour), 1D (1 day), 1M (1 month)"</tt><tt class="py-op">)</tt> </tt>
+<a name="L419"></a><tt class="py-lineno">419</tt>  <tt class="py-line">    <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">"-f"</tt><tt class="py-op">,</tt> <tt class="py-string">"--format"</tt><tt class="py-op">,</tt> <tt class="py-string">"--syntax"</tt><tt class="py-op">,</tt> <tt class="py-string">"--highlight"</tt><tt class="py-op">,</tt> </tt>
+<a name="L420"></a><tt class="py-lineno">420</tt>  <tt class="py-line">                      <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> <tt class="py-name">type</tt><tt class="py-op">=</tt><tt class="py-string">"string"</tt><tt class="py-op">,</tt> <tt class="py-name">metavar</tt><tt class="py-op">=</tt><tt class="py-string">"FORMAT"</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">"format"</tt><tt class="py-op">,</tt> </tt>
+<a name="L421"></a><tt class="py-lineno">421</tt>  <tt class="py-line">                      <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"syntax highlighting, use one of the following: "</tt> <tt class="py-op">+</tt> \ </tt>
+<a name="L422"></a><tt class="py-lineno">422</tt>  <tt class="py-line">                           <tt class="py-string">', '</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="pastebin.Pastebin" class="py-name" href="#" onclick="return doclink('link-23', 'Pastebin', 'link-21');">Pastebin</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="pastebin.Pastebin.paste_format" class="py-name" href="#" onclick="return doclink('link-24', 'paste_format', 'link-8');">paste_format</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L423"></a><tt class="py-lineno">423</tt>  <tt class="py-line"> </tt>
+<a name="L424"></a><tt class="py-lineno">424</tt>  <tt class="py-line">    <tt class="py-comment"># Parse the command line and submit each snippet</tt> </tt>
+<a name="L425"></a><tt class="py-lineno">425</tt>  <tt class="py-line">    <tt class="py-name">options</tt><tt class="py-op">,</tt> <tt class="py-name">args</tt> <tt class="py-op">=</tt> <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">parse_args</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">)</tt> </tt>
+<a name="L426"></a><tt class="py-lineno">426</tt>  <tt class="py-line">    <tt class="py-name">args</tt> <tt class="py-op">=</tt> <tt class="py-name">args</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L427"></a><tt class="py-lineno">427</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">args</tt><tt class="py-op">:</tt> </tt>
+<a name="L428"></a><tt class="py-lineno">428</tt>  <tt class="py-line">        <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">print_help</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L429"></a><tt class="py-lineno">429</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">filename</tt> <tt class="py-keyword">in</tt> <tt class="py-name">args</tt><tt class="py-op">:</tt> </tt>
+<a name="L430"></a><tt class="py-lineno">430</tt>  <tt class="py-line">        <tt class="py-name">data</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">,</tt> <tt class="py-string">'rb'</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">read</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L431"></a><tt class="py-lineno">431</tt>  <tt class="py-line">        <tt class="py-name">url</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="pastebin.Pastebin" class="py-name" href="#" onclick="return doclink('link-25', 'Pastebin', 'link-21');">Pastebin</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="pastebin.Pastebin.submit
+pastebin.submit" class="py-name" href="#" onclick="return doclink('link-26', 'submit', 'link-20');">submit</a></tt><tt class="py-op">(</tt><tt class="py-name">paste_code</tt> <tt class="py-op">=</tt> <tt class="py-name">data</tt><tt class="py-op">,</tt> </tt>
+<a name="L432"></a><tt class="py-lineno">432</tt>  <tt class="py-line">                              <tt class="py-name">paste_name</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">name</tt><tt class="py-op">,</tt> </tt>
+<a name="L433"></a><tt class="py-lineno">433</tt>  <tt class="py-line">                              <tt class="py-name">paste_private</tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">private</tt><tt class="py-op">,</tt> </tt>
+<a name="L434"></a><tt class="py-lineno">434</tt>  <tt class="py-line">                              <tt id="link-27" class="py-name"><a title="pastebin.Pastebin.paste_expire_date" class="py-name" href="#" onclick="return doclink('link-27', 'paste_expire_date', 'link-7');">paste_expire_date</a></tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">expire</tt><tt class="py-op">,</tt> </tt>
+<a name="L435"></a><tt class="py-lineno">435</tt>  <tt class="py-line">                              <tt id="link-28" class="py-name"><a title="pastebin.Pastebin.paste_format" class="py-name" href="#" onclick="return doclink('link-28', 'paste_format', 'link-8');">paste_format</a></tt> <tt class="py-op">=</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">format</tt><tt class="py-op">)</tt> </tt>
+<a name="L436"></a><tt class="py-lineno">436</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"%s --&gt; %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">,</tt> <tt class="py-name">url</tt><tt class="py-op">)</tt> </tt>
+<a name="L437"></a><tt class="py-lineno">437</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Feb 14 00:25:23 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
